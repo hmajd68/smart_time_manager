@@ -33,7 +33,7 @@ jobs:
     - name: تنظیم Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.29.2'
+        flutter-version: '3.44.8'  # ✅ تغییر به نسخه مورد نیاز
         channel: 'stable'
 
     - name: نصب Android SDK
@@ -66,7 +66,8 @@ jobs:
         SKIP_JDK_VERSION_CHECK: true
       run: |
         flutter config --no-analytics
-        flet build apk --verbose
+        flutter doctor -v
+        yes | flet build apk --verbose
 
     - name: ذخیره APK
       uses: actions/upload-artifact@v4

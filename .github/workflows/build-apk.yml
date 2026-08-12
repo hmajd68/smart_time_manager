@@ -33,7 +33,7 @@ jobs:
     - name: تنظیم Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.44.8'  # ✅ تغییر به نسخه مورد نیاز
+        flutter-version: '3.44.8'
         channel: 'stable'
 
     - name: نصب Android SDK
@@ -61,13 +61,12 @@ jobs:
     - name: ساخت APK
       env:
         FLET_FORCE_FLUTTER_INSTALL: 1
+        FLET_PYTHON_BUILD_MANIFEST: https://raw.githubusercontent.com/flet-dev/python-build/main/manifest.json
         FLUTTER_STORAGE_BASE_URL: https://storage.flutter-io.cn
         PUB_HOSTED_URL: https://pub.flutter-io.cn
-        SKIP_JDK_VERSION_CHECK: true
       run: |
         flutter config --no-analytics
-        flutter doctor -v
-        yes | flet build apk --verbose
+        yes | flet build apk --verbose --skip-build-deps
 
     - name: ذخیره APK
       uses: actions/upload-artifact@v4

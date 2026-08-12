@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+env/
+.venv/
+*.db
+*.sqlite3
+*.sqlite
+*.apk
+*.zip
+*.tar.gz
+*.log
+.DS_Store
+build/
+dist/
+*.egg-info/

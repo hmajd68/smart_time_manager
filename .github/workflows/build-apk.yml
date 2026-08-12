@@ -18,17 +18,11 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-        cache: 'pip'
 
     - name: نصب وابستگی‌ها
       run: |
         python -m pip install --upgrade pip
-        if [ -f "requirements.txt" ]; then
-          pip install -r requirements.txt
-        else
-          pip install flet jdatetime
-        fi
-        pip install flet
+        pip install flet jdatetime
 
     - name: تنظیم Java
       uses: actions/setup-java@v5
@@ -67,9 +61,11 @@ jobs:
     - name: ساخت APK
       env:
         FLET_FORCE_FLUTTER_INSTALL: 1
+        FLUTTER_STORAGE_BASE_URL: https://storage.flutter-io.cn
+        PUB_HOSTED_URL: https://pub.flutter-io.cn
+        SKIP_JDK_VERSION_CHECK: true
       run: |
         flutter config --no-analytics
-        flutter doctor -v
         flet build apk --verbose
 
     - name: ذخیره APK

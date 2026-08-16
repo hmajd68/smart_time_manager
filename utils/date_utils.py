@@ -5,7 +5,6 @@ import jdatetime
 class DateUtils:
     @staticmethod
     def to_jalali(date_str: str = None) -> str:
-        """تبدیل تاریخ میلادی به شمسی"""
         if date_str:
             try:
                 date_obj = datetime.strptime(date_str, "%Y-%m-%d")
@@ -17,7 +16,6 @@ class DateUtils:
     
     @staticmethod
     def from_jalali(jalali_str: str) -> str:
-        """تبدیل تاریخ شمسی به میلادی"""
         try:
             jalali = jdatetime.datetime.strptime(jalali_str, "%Y/%m/%d")
             return jalali.togregorian().strftime("%Y-%m-%d")
@@ -26,7 +24,10 @@ class DateUtils:
     
     @staticmethod
     def get_today_jalali() -> str:
-        return jdatetime.date.today().strftime("%Y/%m/%d")
+        try:
+            return jdatetime.date.today().strftime("%Y/%m/%d")
+        except:
+            return datetime.now().strftime("%Y/%m/%d")
     
     @staticmethod
     def get_persian_month_name(month: int) -> str:
@@ -44,9 +45,7 @@ class DateUtils:
                 return weekdays[jalali.weekday()]
             except:
                 pass
-        return weekdays[jdatetime.date.today().weekday()]
-    
-    @staticmethod
-    def get_jalali_months():
-        return ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-                'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+        try:
+            return weekdays[jdatetime.date.today().weekday()]
+        except:
+            return weekdays[datetime.now().weekday()]

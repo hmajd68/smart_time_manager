@@ -24,6 +24,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install flet jdatetime
 
+    - name: دانلود manifest.json
+      run: |
+        curl -L -o manifest.json https://raw.githubusercontent.com/flet-dev/python-build/main/manifest.json
+        ls -la manifest.json
+
     - name: تنظیم Java
       uses: actions/setup-java@v5
       with:
@@ -61,7 +66,7 @@ jobs:
     - name: ساخت APK
       env:
         FLET_FORCE_FLUTTER_INSTALL: 1
-        FLET_PYTHON_BUILD_MANIFEST: https://raw.githubusercontent.com/flet-dev/python-build/main/manifest.json
+        FLET_PYTHON_BUILD_MANIFEST: manifest.json  # ✅ مسیر محلی
         FLUTTER_STORAGE_BASE_URL: https://storage.flutter-io.cn
         PUB_HOSTED_URL: https://pub.flutter-io.cn
       run: |
